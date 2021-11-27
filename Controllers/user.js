@@ -11,14 +11,14 @@ const createUser = (req, res) => {
         email,
         password
     }).then((data) => {
-        console.log(data);
+        // console.log(data);
         res.status(200).send({
             message: "User Created Successfully",
             User: data,
         })
 
     }).catch((err) => {
-        console.log(err);
+        // console.log(err);
         res.status(409).send({
             message: "Username or Email already exist",
             err,

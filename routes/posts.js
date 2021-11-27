@@ -1,7 +1,8 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
-const upload = require("../multer")
+const upload = require("../multer");
+const PostController = require("../Controllers/post");
 
 const verifyToken = (req, res, next) => {
   const bearerHeader = req.headers["authorization"];
@@ -15,6 +16,10 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+// Database 
+
+router.post("/create", PostController.creatPost);
+router.get("/getPost/:id", PostController.getPost);
 
 const posts = []
 
