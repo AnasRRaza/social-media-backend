@@ -1,8 +1,11 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+const mongoConStr = "mongodb+srv://anas:anas123@cluster.h17ig.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 app.use(
   cors({
@@ -26,5 +29,10 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
+  mongoose.connect(mongoConStr).then(() => {
+    console.log("Database Connected");
+  }).catch((e) => {
+    console.log(e);
+  })
   console.log(`Example app listening at http://localhost:${port}`);
 })

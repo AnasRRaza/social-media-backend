@@ -2,37 +2,44 @@ const express = require("express");
 const router = express.Router();
 const md5 = require("md5");
 const jwt = require("jsonwebtoken");
+const userController = require("../Controllers/user")
 
 const users = [];
 
-router.post("/register", (req, res) => {
+router.post("/register", userController.createUser);
+router.get("/getUser/:id", userController.getUser);
+router.get("/getAll", userController.getAll);
+router.put("/update", userController.updateUser);
+router.delete("/delete/:id", userController.deleteUser);
 
-  const id = new Date().getTime();
-  const username = req.body.username;
-  const email = req.body.email;
-  const password = md5(req.body.password);
+// router.post("/register", (req, res) => {
 
-  const isMatch = users.some((user) => {
-    return user.username === username || user.email === email;
-  });
+//   const id = new Date().getTime();
+//   const username = req.body.username;
+//   const email = req.body.email;
+//   const password = md5(req.body.password);
 
-  if (isMatch) {
-    res.status(409);
-    res.send({ message: "Username or email already exist!" });
-  } else {
-    users.push({
-      userId: id,
-      username,
-      email,
-      password
-    });
-    res.status(200);
-    res.send({
-      message: "User created successfully",
-      userId: id,
-    });
-  }
-});
+//   const isMatch = users.some((user) => {
+//     return user.username === username || user.email === email;
+//   });
+
+//   if (isMatch) {
+//     res.status(409);
+//     res.send({ message: "Username or email already exist!" });
+//   } else {
+//     users.push({
+//       userId: id,
+//       username,
+//       email,
+//       password
+//     });
+//     res.status(200);
+//     res.send({
+//       message: "User created successfully",
+//       userId: id,
+//     });
+//   }
+// });
 
 router.post("/login", (req, res) => {
 
